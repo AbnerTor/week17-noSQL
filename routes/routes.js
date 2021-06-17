@@ -13,29 +13,47 @@ router.get('/exercise', (req, res) => res.sendFile(path.join(__dirname,'../publi
 //add or retrieve workouts
 
 
-router.get('/api/workouts/range', (req, res) => {
-    Workout.aggregate([
-        {
-            $addFields: {
-                totalTime: {sum:'$exercises.duration'}
-            }
-        }
-    ])
-    .then((dbWorkout => {
-        res.json(dbWorkout);
-    }))
+router.get('/api/workouts', (req, res) => {
+    Workout.find({})
+    .then(allworkouts => {
+        res.json(allworkouts);
+    })
     .catch((err) => {
         res.status(400).json(err)
     })
 })
 
 
-router.get('/api/workouts', (req, res) => {
-    Workout.find({})
-    .then(allworkouts => {
-        res.json(allworkouts);
+router.get('/api/workouts/range', (req, res) => {
+    // Workout.aggregate([
+    //     {
+    //         $addFields: {
+    //             totalTime: {sum:'$exercises.duration'}
+    //         }
+    //     }
+    // ])
+    // .then((dbWorkout => {
+    //     res.json(dbWorkout);
+    // }))
+    // .catch((err) => {
+    //     res.status(400).json(err)
+    // })
+
+    const getTime = Workout.aggregate([
+        {
+            $time: {
+                day: 1,
+                exercises: 1,
+                totalTime: {sum: '$exercises.duration'}
+            }
+        }
+    ]).sort({_id: 'desc'}).limit(7)
+    .then (totalTime => {
+        res.json(totalTime)
     })
 })
+
+
 
 router.put('/api/workouts/:id', (req, res) => {     
     Workout.findByIdAndUpdate(
