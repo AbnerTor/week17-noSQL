@@ -25,33 +25,32 @@ router.get('/api/workouts', (req, res) => {
 
 
 router.get('/api/workouts/range', (req, res) => {
-    // Workout.aggregate([
-    //     {
-    //         $addFields: {
-    //             totalTime: {sum:'$exercises.duration'}
-    //         }
-    //     }
-    // ])
-    // .then((dbWorkout => {
-    //     res.json(dbWorkout);
-    // }))
-    // .catch((err) => {
-    //     res.status(400).json(err)
-    // })
-
-    const getTime = Workout.aggregate([
-        {
-            $time: {
-                day: 1,
-                exercises: 1,
-                totalTime: {sum: '$exercises.duration'}
-            }
-        }
-    ]).sort({_id: 'desc'}).limit(7)
-    .then (totalTime => {
-        res.json(totalTime)
+    Workout.find()
+    .then(workoutData => {
+        res.json(workoutData);
+    })
+    .catch((err) => {
+        res.status(400).json(err)
     })
 })
+
+// router.get('/api/workouts/range', (req, res) => {
+//     Workout.aggregate([
+//         {
+//             $addFields: {
+//                 totalTime: {sum:'$exercises.duration'}
+//             }
+//         }
+//     ])
+//     .then((dbWorkout => {
+//         res.json(dbWorkout);
+//     }))
+//     .catch((err) => {
+//         res.status(400).json(err)
+//     })
+
+
+// })
 
 
 
