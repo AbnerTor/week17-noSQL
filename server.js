@@ -19,5 +19,5 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
 app.use(require('./routes/routes.js'));
 
 app.listen(PORT, () => { 
-    console.log('Port herok3000 is working');
+    console.log('Port 3000 is working');
 });
