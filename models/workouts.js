@@ -10,7 +10,7 @@ const WorkoutSchema = new Schema ({
     exercises: [{
         name: {
             type: String,
-            trim: true,
+            enum: ['resistance', 'cardio'],
             require: true
         },
         type: {
@@ -32,6 +32,7 @@ const WorkoutSchema = new Schema ({
         },
         duration: {
             type: Number,
+            require: true,
             default: 0
         },
         distance: {
@@ -41,4 +42,6 @@ const WorkoutSchema = new Schema ({
     }]
 });
 
-module.exports = mongoose.model('Workout', WorkoutSchema)
+const Workout = mongoose.model('Workout', WorkoutSchema);
+
+module.exports = Workout;

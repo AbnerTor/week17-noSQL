@@ -30,7 +30,7 @@ It is a workout tracker, it helps you keep track of stuff.
 
 ## Tests
 
-THhe following instructions are how to run tests on this program: Type 'node server.js' into the console, and go to the respective port to use it. 
+THhe following instructions are how to run tests on this program: Clone this repo to your pc, then type npm instal in the conole to download all its dependencies. THen type 'node server.js' into the console, and go to the respective port to use it. Or alternatively, you can visit the page here: https://w17nosql.herokuapp.com/. 
 
 
 
